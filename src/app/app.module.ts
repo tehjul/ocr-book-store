@@ -15,7 +15,7 @@ import { AuthService } from './services/auth.service';
 import { BooksService } from './services/books.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { cpuUsage } from 'process';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
@@ -43,6 +43,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     AuthGuardService,
