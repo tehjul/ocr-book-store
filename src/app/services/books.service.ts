@@ -22,8 +22,14 @@ export class BooksService {
 
   saveBooks() {
     const database = getDatabase();
-    console.log(this.books);
-    set(ref(database, '/books/'), this.books);
+    set(ref(database, '/books/'), this.books).then(
+      () => {
+        console.log('Enregistrement terminé !');
+      },
+      (error) => {
+        console.log('Erreur de sauvegarde : ' + error);
+      }
+    );
   }
 
   getBooks() {
