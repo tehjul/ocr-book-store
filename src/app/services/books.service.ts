@@ -22,19 +22,13 @@ export class BooksService {
 
   saveBooks() {
     const database = getDatabase();
-    set(ref(database, '/books/'), this.books).then(
-      () => {
-        console.log('Enregistrement terminé !');
-      },
-      (error) => {
-        console.log('Erreur de sauvegarde : ' + error);
-      }
-    );
+    set(ref(database, '/books'), this.books);
   }
 
   getBooks() {
     const database = getDatabase();
-    onValue(ref(database, '/books'), (data: DataSnapshot) => {
+    const books = ref(database, '/books');
+    onValue(books, (data: DataSnapshot) => {
       this.books = data.val() ? data.val() : [];
       this.emitBooks();
     }
