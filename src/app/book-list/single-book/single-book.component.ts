@@ -13,12 +13,16 @@ export class SingleBookComponent implements OnInit {
   book: Book;
 
   constructor(private route: ActivatedRoute, private booksService: BooksService,
-              private router: Router) {}
+    private router: Router) { }
 
   ngOnInit() {
     this.book = new Book('', '');
     const id = this.route.snapshot.params['id'];
-    this.book = this.booksService.getSingleBook(+id);
+    this.booksService.getSingleBook(+id).then(
+      (book: Book) => {
+        this.book = book;
+      }
+    );
   }
 
   onBack() {

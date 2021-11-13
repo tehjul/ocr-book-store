@@ -36,12 +36,18 @@ export class BooksService {
   }
 
   getSingleBook(id: number): any {
-    const database = getDatabase();
-    onValue(ref(database, '/books/' + id), (data: DataSnapshot) => {
-      this.books = data.val() ? data.val() : [];
-      this.emitBooks();
-      return this.books;
-    }
+    return new Promise(
+      (resolve, reject) => {
+        const database = getDatabase();
+        const book = ref(database, '/books/' + id);
+        onValue(book, (data: DataSnapshot) => {
+          resolve(data.val());
+        },
+          (error) => {
+            reject(error);
+          }
+        );
+      }
     );
   }
 
